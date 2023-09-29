@@ -3,7 +3,6 @@ const endGame = document.getElementById("end-game");
 const showButton = document.getElementById("show");
 const help = document.getElementById("help");
 const timer = document.getElementsByClassName("timer")[0];
-let gameOn = false;
 
 const buttons = document.getElementsByClassName("game-buttons")[0];
 
@@ -16,8 +15,10 @@ let option = 2;
 let firstTime = true;
 let countdown;
 
+// all blocks that will be unmasked will be stored here
 let unMaskedElements = [];
 
+// images 
 let images = ["./images/lime.jpg", "./images/cherries.jpg",
     "./images/apple.jpg", "./images/orange.jpg",
     "./images/arbutus.jpg", "./images/pineapple.jpg",
@@ -25,10 +26,11 @@ let images = ["./images/lime.jpg", "./images/cherries.jpg",
     "./images/strawberry.jpg", "./images/macarons.jpg",
     "./images/apricots.jpg", "./images/kiwi.jpg"];
 
+// this array will be used as final images array and will be updated using updateArrayElement function
 let updateArray = [];
 
+// this function will render UI for very first time
 function renderUI() {
-
     for (let i = 0; i < options.length; i++) {
         options[i].addEventListener("click", () => {
             option = document.querySelector("input:checked").value;
@@ -43,19 +45,8 @@ function renderUI() {
     hide(endGame);
 }
 
-renderUI();
-// start.addEventListener("click", () => {
-//     enableElement(help);
-//     const userInput = confirm("You have 60 seconds to solve the Game! (series " + option + " )");
-//     if (userInput) {
-//         backdrop.style.display = "none";
-//         modal.style.display = "none";
-//         document.querySelector("fieldset").disabled = true;
-//     }
-// });
-
-newGame.addEventListener("click", () => {
-    gameOn = true;
+// start game function
+function startGame() {
     removeBackdrop();
     for (let i = 0; i < 60; i++) {
         countdown = setTimeout(() => {
@@ -69,27 +60,32 @@ newGame.addEventListener("click", () => {
     disableElement(document.querySelector("fieldset"));
     setTimeout(() => {
         gameOver();
-        // window.location.reload();
     }, 60000);
-});
+};
 
+// adding functionality to new game button
+newGame.addEventListener("click", startGame);
+
+// this will end game after one sec of clicking in end game
 endGame.addEventListener("click", () => {
     endGame.innerHTML = "<b style='color:red'>ENDING...</b>";
     setTimeout(() => {
-        window.location.reload();
-        show(newGame);
-        hide(endGame);
+        gameOver();
     }, 1000);
 });
 
+// 
+// adding functionality to show button
 showButton.addEventListener("click", unMaskAll);
 
+// adding functionality to help button
 help.addEventListener("click", () => {
     clearTimeout();
     alert("You need to unMask all the matching blocks to win the game. In this game there are " + option + " copies of each item. All the best!");
 });
 
 
+// This function is responsible for providing the array of images that will finally be used
 function updateArrayElements(series) {
     let distinctElements = 24 / series;
     let distictImagesArray = images.slice(0, distinctElements);
@@ -100,7 +96,7 @@ function updateArrayElements(series) {
     return finalArray;
 }
 
-
+// This function updates the hidden images when user changes series option
 function updateImages() {
     let shuffled_images = updateArray.sort(() => (Math.random() > 0.5) ? 2 : -1);
 
@@ -135,7 +131,6 @@ function compareImage(ele) {
             unMaskedElements.push(ele);
         } else {
             while (unMaskedElements.length % option !== 0) {
-                // console.log(unMaskedElements.at())
                 let lastEle = unMaskedElements.pop();
                 setTimeout(() => {
                     lastEle.classList.remove("removeMask");
@@ -144,7 +139,6 @@ function compareImage(ele) {
             }
         }
     }
-    console.log(unMaskedElements);
     if (unMaskedElements.length === 24) {
         alert("WOOHOOO, You Win!!");
         setTimeout(() => {
@@ -155,7 +149,7 @@ function compareImage(ele) {
 }
 
 function gameOver() {
-    alert("GAME OVER!!! You were able to unmask " + unMaskedElements.length + " blocks.");
+    alert("GAME OVER, You unmasked " + unMaskedElements.length + " out of 24 blocks!");
     window.location.reload();
 }
 
@@ -184,3 +178,5 @@ function hide(ele) {
 function show(ele) {
     ele.style.display = "block";
 }
+
+renderUI();
