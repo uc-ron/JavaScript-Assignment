@@ -27,10 +27,23 @@ let images = ["./images/lime.jpg", "./images/cherries.jpg",
 
 let updateArray = [];
 
-disableElement(showButton);
-disableElement(help);
-hide(endGame);
+function renderUI() {
 
+    for (let i = 0; i < options.length; i++) {
+        options[i].addEventListener("click", () => {
+            option = document.querySelector("input:checked").value;
+            updateArray = updateArrayElements(option);
+            updateImages();
+        });
+    }
+    updateArray = updateArrayElements(option);
+    updateImages();
+    disableElement(showButton);
+    disableElement(help);
+    hide(endGame);
+}
+
+renderUI();
 // start.addEventListener("click", () => {
 //     enableElement(help);
 //     const userInput = confirm("You have 60 seconds to solve the Game! (series " + option + " )");
@@ -61,7 +74,7 @@ newGame.addEventListener("click", () => {
 });
 
 endGame.addEventListener("click", () => {
-    endGame.innerHTML="<b style='color:red'>ENDING...</b>";
+    endGame.innerHTML = "<b style='color:red'>ENDING...</b>";
     setTimeout(() => {
         window.location.reload();
         show(newGame);
@@ -71,18 +84,11 @@ endGame.addEventListener("click", () => {
 
 showButton.addEventListener("click", unMaskAll);
 
-help.addEventListener("click",()=>{
-    clearTimeout()
-    alert("You need to unMask all the matching blocks to win the game. In this game there are "+option+" copies of each item. All the best!")
-})
+help.addEventListener("click", () => {
+    clearTimeout();
+    alert("You need to unMask all the matching blocks to win the game. In this game there are " + option + " copies of each item. All the best!");
+});
 
-for (let i = 0; i < options.length; i++) {
-    options[i].addEventListener("click", () => {
-        option = document.querySelector("input:checked").value;
-        updateArray = updateArrayElements(option);
-        updateImages();
-    });
-}
 
 function updateArrayElements(series) {
     let distinctElements = 24 / series;
@@ -93,8 +99,8 @@ function updateArrayElements(series) {
     }
     return finalArray;
 }
-updateArray = updateArrayElements(option);
-updateImages();
+
+
 function updateImages() {
     let shuffled_images = updateArray.sort(() => (Math.random() > 0.5) ? 2 : -1);
 
@@ -138,9 +144,9 @@ function compareImage(ele) {
             }
         }
     }
-    console.log(unMaskedElements)
-    if(unMaskedElements.length===24){
-        alert("WOOHOOO, You Win!!")
+    console.log(unMaskedElements);
+    if (unMaskedElements.length === 24) {
+        alert("WOOHOOO, You Win!!");
         setTimeout(() => {
             gameOver();
         }, 1000);
@@ -149,12 +155,12 @@ function compareImage(ele) {
 }
 
 function gameOver() {
-    alert("GAME OVER!!! You were able to unmask "+ unMaskedElements.length + " blocks.");
+    alert("GAME OVER!!! You were able to unmask " + unMaskedElements.length + " blocks.");
     window.location.reload();
 }
 
 function unMaskAll() {
-    alert("This will show the solution and terminate the game. You unmasked "+unMaskedElements.length +" blocks.");
+    alert("This will show the solution and terminate the game. You unmasked " + unMaskedElements.length + " blocks.");
     let elements = document.getElementById("game-block").children;
     for (let i = 1; i < elements.length; i++) {
         elements[i].classList.add("removeMask");
