@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>JavaScript | Assignment</title>
+</head>
+
+<body>
+    <div class="game-container">
+        <h2>JavaScript | Assignment 00:<span class="timer">00</span></h2>
+        <div class="game" id="game-block">
+            <div class="backdrop" title="click on new game to start the game">
+            </div>
+        </div>
+        <div class="game-actions">
+            <fieldset>
+                <form id="op" class="game-options">
+                    <div class="input-container">
+                        <input type="radio" name="series" id="series1" value="2" checked>
+                        <label for="series1">series of 2 pics</label>
+                    </div>
+                    <div class="input-container">
+                        <input type="radio" name="series" id="series2" value="3">
+                        <label for="series2">series of 3 pics</label>
+                    </div>
+                    <div class="input-container">
+                        <input type="radio" name="series" id="series3" value="4">
+                        <label for="series3">series of 4 pics</label>
+                    </div>
+                </form>
+            </fieldset>
+            <div class="game-buttons">
+                <button class="btn" id="new-game">New Game</button>
+                <button class="btn " id="end-game">End Game</button>
+                <button class="btn" id="show">Show</button>
+                <button class="btn " id="help">Help</button>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

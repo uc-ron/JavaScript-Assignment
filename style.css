@@ -1,0 +1,247 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #d79922;
+    min-height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.game-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    background: #efe2ba;
+    padding: 3rem 2rem;
+    height: 90vh;
+    width: 50vw;
+}
+
+.game-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    max-height: 30%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.game-options {
+    display: flex;
+    flex-direction: column;
+}
+
+.game-options input {
+    cursor: pointer;
+}
+
+.input-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+    border: 1px solid #000;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.5px;
+    padding: 1rem 0.5rem;
+}
+
+.input-container>label {
+    cursor: pointer;
+}
+
+.game-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 8px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #d79922;
+    cursor: poin ter;
+    border: none;
+    letter-spacing: 1px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn:focus,
+.btn:hover {
+    border: 0.5px solid #000;
+    opacity: 0.7;
+
+}
+
+.game {
+    position: relative;
+    width: 100%;
+    min-height: 65%;
+    /* background: #000; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    perspective: 500px;
+    justify-content: center;
+    align-items: center;
+}
+
+.backdrop {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 5;
+    background: #000;
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+fieldset:disabled {
+    cursor: not-allowed;
+}
+
+fieldset:disabled>form>div>input,
+fieldset:disabled>form>div>label {
+    cursor: not-allowed;
+
+}
+
+.modal {
+    position: absolute;
+    background: #fff;
+    z-index: 100;
+}
+
+.start-btn {
+    background: #4506a1;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    padding: 1rem 2rem;
+}
+
+.img {
+    position: relative;
+    height: 23%;
+    width: 15%;
+    background-size: cover !important;
+    background-position: center !important;
+    border: #d79922 2px solid;
+    cursor: not-allowed;
+    transition: 0.5s;
+}
+
+
+.img:after {
+    content: '';
+    position: absolute;
+    display: flex;
+    position: relative;
+    background: url("/images/images.png");
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.img.removeMask {
+    transition: 0.5s;
+    display: block;
+    transform: rotateY(180deg);
+    box-shadow: 0px 0px 5px 2px #538700;
+}
+
+.img.removeMask::after {
+    transform: rotateY(0deg);
+    display: none;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+fieldset{
+    border: none;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width:1124px) and (min-height:845)  {
+
+    .game-container {
+        gap: 15px;
+        width: 70%;
+    }
+    .input-container{
+        padding: 0.8rem 0.5rem;
+        font-size: 15px;
+    }
+    .btn{
+        font-size: 12px;
+        padding: 6px 15px;
+    }
+    
+    h2 {
+        font-size: 15px;
+    }
+}
+
+
+@media (max-width:800px) {
+    
+    .game-container {
+        width: 80%;
+        gap: 10px;
+    }
+    
+    .input-container{
+        padding: 0.6rem 0.5rem;
+        font-size: 12px;
+    }
+    .btn{
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    
+    h2 {
+        font-size: 12px;
+    }
+}
+
+@media (max-width:600px) {
+    
+    .game-container {
+        gap: 5px;
+        width: 90%;
+    }
+    
+    
+    .input-container{
+        font-size: 10px;
+        padding: 0.4rem 0.5rem;
+    }
+    .btn{
+        font-size: 12px;
+        padding: 6px 5px;
+    }
+    h2 {
+        font-size: 12px;
+    }
+}
