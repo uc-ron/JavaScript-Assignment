@@ -14,6 +14,7 @@ let options = document.querySelectorAll("input[type='radio']");
 let option = 2;
 let firstTime = true;
 let countdown;
+let timeInSec = 120;
 
 // all blocks that will be unmasked will be stored here
 let unMaskedElements = [];
@@ -48,9 +49,9 @@ function renderUI() {
 // start game function
 function startGame() {
     removeBackdrop();
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < timeInSec; i++) {
         countdown = setTimeout(() => {
-            timer.innerHTML = i < 10 ? '0' + i : i;
+            timer.innerHTML = timeInSec - i;
         }, i * 1000);
     }
     show(endGame);
@@ -60,7 +61,7 @@ function startGame() {
     disableElement(document.querySelector("fieldset"));
     setTimeout(() => {
         gameOver();
-    }, 60000);
+    }, timeInSec * 1000);
 };
 
 // adding functionality to new game button
@@ -80,8 +81,11 @@ showButton.addEventListener("click", unMaskAll);
 
 // adding functionality to help button
 help.addEventListener("click", () => {
-    clearTimeout();
-    alert("You need to unMask all the matching blocks to win the game. In this game there are " + option + " copies of each item. All the best!");
+    backdrop.innerHTML = "<h1 class='message help'>You are required to un-mask all the block to win this game.<br> This game container " + option + " copies of each elements.</h1>";
+    show(backdrop);
+    setTimeout(() => {
+        hide(backdrop);
+    }, 4000);
 });
 
 
@@ -105,10 +109,7 @@ function updateImages() {
             let box = document.createElement('div');
             box.className = "img";
             box.style.background = "url(" + shuffled_images[i] + ")";
-            box.addEventListener("click", (e) => {
-                box.classList.add("removeMask");
-                compareImage(e.target);
-            });
+            box.addEventListener("click", handleEvent);
             document.getElementById("game-block").appendChild(box);
             firstTime = false;
         }
@@ -122,35 +123,50 @@ function updateImages() {
 
 }
 
+function handleEvent(e) {
+    e.target.classList.add("removeMask");
+    compareImage(e.target);
+}
+
 function compareImage(ele) {
     if (unMaskedElements.length === 0 || unMaskedElements.length % option === 0) {
+        ele.removeEventListener("click", handleEvent);
         unMaskedElements.push(ele);
     }
     else {
         if (unMaskedElements.at(unMaskedElements.length - 1).style.background === ele.style.background) {
+            ele.removeEventListener("click", handleEvent);
             unMaskedElements.push(ele);
         } else {
             while (unMaskedElements.length % option !== 0) {
                 let lastEle = unMaskedElements.pop();
                 setTimeout(() => {
+                    ele.addEventListener("click", handleEvent);
+                    lastEle.addEventListener("click", handleEvent);
                     lastEle.classList.remove("removeMask");
                     ele.classList.remove("removeMask");
                 }, 800);
             }
         }
     }
+    console.log(unMaskedElements);
     if (unMaskedElements.length === 24) {
-        alert("WOOHOOO, You Win!!");
+        backdrop.innerHTML = "<h1 class='message'>YOU WON.</h1>";
+        show(backdrop);
         setTimeout(() => {
-            gameOver();
-        }, 1000);
+            // alert("WOOHOOO, You Win!!");
+            window.location.reload();
+        }, 4000);
     }
 
 }
 
 function gameOver() {
-    alert("GAME OVER, You unmasked " + unMaskedElements.length + " out of 24 blocks!");
-    window.location.reload();
+    backdrop.innerHTML = "<h1 class='message lose'>Game Over.<br> You un-masked " + unMaskedElements.length + " out of 24.</h1>";
+    show(backdrop);
+    setTimeout(() => {
+        window.location.reload();
+    }, 4000);
 }
 
 function unMaskAll() {
@@ -176,7 +192,8 @@ function hide(ele) {
     ele.style.display = "none";
 }
 function show(ele) {
-    ele.style.display = "block";
+    ele.style.display = "flex";
 }
+
 
 renderUI();

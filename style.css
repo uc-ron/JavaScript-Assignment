@@ -104,8 +104,26 @@ body {
     background: #000;
     opacity: 0.8;
     cursor: not-allowed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.message{
+    z-index: 10;
+    position: relative;
+    color:yellowgreen;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+}
+.lose{
+    color: red;
+}
+.help{
+    color: yellow;
+    font-size: 20px;
+}
 fieldset:disabled {
     cursor: not-allowed;
 }
@@ -148,6 +166,7 @@ fieldset:disabled>form>div>label {
     position: absolute;
     display: flex;
     background: url("./images/mask.png");
+    /* opacity: 0.5; */
     width: 100%;
     height: 100%;
     background-size: cover;
