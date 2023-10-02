@@ -216,6 +216,7 @@ fieldset{
         gap: 15px;
         width: 70%;
     }
+    
     .input-container{
         padding: 0.8rem 0.5rem;
         font-size: 15px;
@@ -226,7 +227,7 @@ fieldset{
     }
     
     h2 {
-        font-size: 15px;
+        font-size: 20px;
     }
 }
 
@@ -236,6 +237,9 @@ fieldset{
     .game-container {
         width: 80%;
         gap: 10px;
+    }
+    .game{
+        min-height: 45%;
     }
     
     .input-container{
@@ -249,7 +253,7 @@ fieldset{
     
     
     h2 {
-        font-size: 12px;
+        font-size: 15px;
     }
 }
 
@@ -260,7 +264,9 @@ fieldset{
         width: 90%;
     }
     
-    
+    .game{
+        min-height: 40%;
+    }    
     .input-container{
         font-size: 10px;
         padding: 0.4rem 0.5rem;
